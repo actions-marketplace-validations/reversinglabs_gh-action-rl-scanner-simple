@@ -1,0 +1,32 @@
+# action.yml
+name: 'gh-action-rl-scanner-simple'
+author: 'ReversingLabs'
+description: 'scan a artifact and provide a output status'
+
+branding:
+  icon: 'check'
+  color: 'green'
+
+inputs:
+  artifact-to-scan:
+    description: 'The file artifact we will be scanning (a file path relative to the github.workspace)'
+    required: true
+  report-path:
+    description: 'the path of the directory we will create to put the report in, must be empty, all data will be removed from this dir, is relative to github.workspace'
+    required: false
+    default: MyReportDir
+
+outputs:
+  description:
+    description: 'The result of the action: a string terminating in FAIL or PASS'
+  status:
+    description: 'The single word result of the action: success, failure or error'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args: # args passed to the entrypoint
+    - "-f"
+    - "${{ inputs.artifact-to-scan }}"
+    - "-r"
+    - "${{ input.report-path }}"
