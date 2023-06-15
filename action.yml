@@ -29,4 +29,4 @@ runs:
     - "-f"
     - "${{ inputs.artifact-to-scan }}"
     - "-r"
-    - "${{ input.report-path }}"
+    - "${{ inputs.report-path }}"
